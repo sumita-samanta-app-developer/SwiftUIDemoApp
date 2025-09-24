@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  MovieMvvmDemoApp
 //
-//  Created by Koustav Sen on 24/09/25.
+//  Created by Sumita Samanta on 24/09/25.
 //
 
 import SwiftUI
