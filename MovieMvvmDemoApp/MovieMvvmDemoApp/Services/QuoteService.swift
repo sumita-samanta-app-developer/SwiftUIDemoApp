@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+struct QuoteRequest: APIRequestType {
+    typealias Response = QuoteListModel
+    
+    var path: String { return "/quote" }
+}
