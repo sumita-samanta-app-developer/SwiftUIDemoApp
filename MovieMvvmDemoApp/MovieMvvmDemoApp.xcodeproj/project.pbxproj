@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D30555E62E89C75800608404 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D30555E52E89C75800608404 /* README.md */; };
 		D305F4672E853E3500533E79 /* CharacterListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D305F4662E853E3500533E79 /* CharacterListModel.swift */; };
 		D305F4692E853F1200533E79 /* CharacterListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D305F4682E853F1200533E79 /* CharacterListViewModel.swift */; };
 		D305F46B2E8546A900533E79 /* CharacterListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D305F46A2E8546A900533E79 /* CharacterListRow.swift */; };
-		D305F46D2E85499D00533E79 /* ActorDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D305F46C2E85499D00533E79 /* ActorDetailsViewModel.swift */; };
-		D305F46F2E8549EB00533E79 /* ActorDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D305F46E2E8549EB00533E79 /* ActorDetailsView.swift */; };
+		D305F46D2E85499D00533E79 /* CharacterDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D305F46C2E85499D00533E79 /* CharacterDetailsViewModel.swift */; };
+		D305F46F2E8549EB00533E79 /* CharacterDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D305F46E2E8549EB00533E79 /* CharacterDetailsView.swift */; };
 		D305F4712E85A4DC00533E79 /* QuoteListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D305F4702E85A4DC00533E79 /* QuoteListModel.swift */; };
 		D305F4732E85A55300533E79 /* QuoteListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D305F4722E85A55200533E79 /* QuoteListViewModel.swift */; };
 		D305F4752E85A6A000533E79 /* QuoteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D305F4742E85A6A000533E79 /* QuoteListView.swift */; };
@@ -53,11 +54,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D30555E42E89C4DC00608404 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D30555E52E89C75800608404 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D305F4662E853E3500533E79 /* CharacterListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListModel.swift; sourceTree = "<group>"; };
 		D305F4682E853F1200533E79 /* CharacterListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewModel.swift; sourceTree = "<group>"; };
 		D305F46A2E8546A900533E79 /* CharacterListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListRow.swift; sourceTree = "<group>"; };
-		D305F46C2E85499D00533E79 /* ActorDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorDetailsViewModel.swift; sourceTree = "<group>"; };
-		D305F46E2E8549EB00533E79 /* ActorDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorDetailsView.swift; sourceTree = "<group>"; };
+		D305F46C2E85499D00533E79 /* CharacterDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailsViewModel.swift; sourceTree = "<group>"; };
+		D305F46E2E8549EB00533E79 /* CharacterDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailsView.swift; sourceTree = "<group>"; };
 		D305F4702E85A4DC00533E79 /* QuoteListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteListModel.swift; sourceTree = "<group>"; };
 		D305F4722E85A55200533E79 /* QuoteListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteListViewModel.swift; sourceTree = "<group>"; };
 		D305F4742E85A6A000533E79 /* QuoteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteListView.swift; sourceTree = "<group>"; };
@@ -125,19 +128,19 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		D305F45E2E853DC000533E79 /* ActorDetails */ = {
+		D305F45E2E853DC000533E79 /* CharacterDetails */ = {
 			isa = PBXGroup;
 			children = (
 				D305F4612E853DD700533E79 /* ViewModel */,
 				D305F45F2E853DCC00533E79 /* View */,
 			);
-			path = ActorDetails;
+			path = CharacterDetails;
 			sourceTree = "<group>";
 		};
 		D305F45F2E853DCC00533E79 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				D305F46E2E8549EB00533E79 /* ActorDetailsView.swift */,
+				D305F46E2E8549EB00533E79 /* CharacterDetailsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -145,7 +148,7 @@
 		D305F4612E853DD700533E79 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				D305F46C2E85499D00533E79 /* ActorDetailsViewModel.swift */,
+				D305F46C2E85499D00533E79 /* CharacterDetailsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 		D3549B092E84328700D75E19 = {
 			isa = PBXGroup;
 			children = (
+				D30555E52E89C75800608404 /* README.md */,
 				D3549B142E84328700D75E19 /* MovieMvvmDemoApp */,
 				D3549B252E84328F00D75E19 /* MovieMvvmDemoAppTests */,
 				D3549B2F2E84328F00D75E19 /* MovieMvvmDemoAppUITests */,
@@ -208,6 +212,7 @@
 		D3549B142E84328700D75E19 /* MovieMvvmDemoApp */ = {
 			isa = PBXGroup;
 			children = (
+				D30555E42E89C4DC00608404 /* Info.plist */,
 				D3549B442E847C8300D75E19 /* Modules */,
 				D3549B3F2E847BFC00D75E19 /* Services */,
 				D3549B152E84328700D75E19 /* MovieMvvmDemoAppApp.swift */,
@@ -259,8 +264,8 @@
 			isa = PBXGroup;
 			children = (
 				D305F4622E853DDF00533E79 /* Quotes */,
-				D305F45E2E853DC000533E79 /* ActorDetails */,
-				D3549B462E847C9600D75E19 /* ActorList */,
+				D305F45E2E853DC000533E79 /* CharacterDetails */,
+				D3549B462E847C9600D75E19 /* CharacterList */,
 				D3549B452E847C8D00D75E19 /* MovieList */,
 			);
 			path = Modules;
@@ -276,14 +281,14 @@
 			path = MovieList;
 			sourceTree = "<group>";
 		};
-		D3549B462E847C9600D75E19 /* ActorList */ = {
+		D3549B462E847C9600D75E19 /* CharacterList */ = {
 			isa = PBXGroup;
 			children = (
 				D305F45D2E853DA300533E79 /* ViewModel */,
 				D305F45C2E853D9B00533E79 /* Model */,
 				D3549B522E8480C100D75E19 /* View */,
 			);
-			path = ActorList;
+			path = CharacterList;
 			sourceTree = "<group>";
 		};
 		D3549B472E847CA200D75E19 /* View */ = {
@@ -424,6 +429,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D30555E62E89C75800608404 /* README.md in Resources */,
 				D3549B1D2E84328E00D75E19 /* Preview Assets.xcassets in Resources */,
 				D3549B1A2E84328E00D75E19 /* Assets.xcassets in Resources */,
 			);
@@ -451,8 +457,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3549B4D2E847CE500D75E19 /* MovieListModel.swift in Sources */,
-				D305F46F2E8549EB00533E79 /* ActorDetailsView.swift in Sources */,
-				D305F46D2E85499D00533E79 /* ActorDetailsViewModel.swift in Sources */,
+				D305F46F2E8549EB00533E79 /* CharacterDetailsView.swift in Sources */,
+				D305F46D2E85499D00533E79 /* CharacterDetailsViewModel.swift in Sources */,
 				D3549B512E84807300D75E19 /* MovieListRow.swift in Sources */,
 				D305F4732E85A55300533E79 /* QuoteListViewModel.swift in Sources */,
 				D3549B182E84328700D75E19 /* ContentView.swift in Sources */,
@@ -636,6 +642,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"MovieMvvmDemoApp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MovieMvvmDemoApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -664,6 +671,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"MovieMvvmDemoApp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MovieMvvmDemoApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

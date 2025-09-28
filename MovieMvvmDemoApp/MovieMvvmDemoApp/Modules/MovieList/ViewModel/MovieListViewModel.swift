@@ -37,10 +37,8 @@ final class MovieListViewModel: ObservableObject {
     init(apiService: APIServiceType = APIService(baseURL: URL(string: "https://e21a086a-4f08-425a-b99c-a9bbe7539a40.mock.pstmn.io/v2/movie")!)) {
         self.apiService = apiService
         
-        bindInputs()
-        bindOutputs()
-        
-//        fetchMovies()
+        fetchMovies()
+        parseMovieData()
     }
     
 //    private func fetchMovies() {
@@ -60,7 +58,7 @@ final class MovieListViewModel: ObservableObject {
 //            .store(in: &cancellables) // Store the subscription
 //    }
     
-    private func bindInputs() {
+    private func fetchMovies() {
         let request = MovieRequest()
         let responsePublisher = onAppearSubject
             .flatMap { [apiService] _ in
@@ -80,7 +78,7 @@ final class MovieListViewModel: ObservableObject {
         ]
     }
     
-    private func bindOutputs() {
+    private func parseMovieData() {
         let repositoriesStream = responseSubject
             .map { $0.docs }
             .assign(to: \.movies, on: self)

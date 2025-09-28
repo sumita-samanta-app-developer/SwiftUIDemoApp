@@ -13,7 +13,7 @@ struct MovieListRow: View {
     @State var movie: MovieModel
 
     var body: some View {
-        NavigationLink(destination: CharacterListView(viewModel: .init())) {
+        NavigationLink(destination: CharacterListView(viewModel: .init(movie: movie))) {
             Text(movie.name)
         }
     }

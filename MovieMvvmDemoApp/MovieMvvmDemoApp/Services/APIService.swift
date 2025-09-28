@@ -18,6 +18,8 @@ protocol APIServiceType {
     func response<Request>(from request: Request) -> AnyPublisher<Request.Response, APIServiceError> where Request: APIRequestType
     
 //    func fetchMovies() -> AnyPublisher<MovieListModel, Error>
+    func fetchQuotes() -> AnyPublisher<QuoteListModel, Error>
+    func fetchCharacters() -> AnyPublisher<CharacterListModel, Error>
 }
 
 final class APIService: APIServiceType {
@@ -57,4 +59,26 @@ final class APIService: APIServiceType {
 //            .decode(type: MovieListModel.self, decoder: JSONDecoder())
 //            .eraseToAnyPublisher()
 //    }
+    
+    func fetchQuotes() -> AnyPublisher<QuoteListModel, Error> {
+        guard let url = URL(string: "https://e21a086a-4f08-425a-b99c-a9bbe7539a40.mock.pstmn.io/v2/quote") else {
+            return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
+        }
+
+        return URLSession.shared.dataTaskPublisher(for: url)
+            .map(\.data)
+            .decode(type: QuoteListModel.self, decoder: JSONDecoder())
+            .eraseToAnyPublisher()
+    }
+    
+    func fetchCharacters() -> AnyPublisher<CharacterListModel, Error> {
+        guard let url = URL(string: "https://e21a086a-4f08-425a-b99c-a9bbe7539a40.mock.pstmn.io/v2/character") else {
+            return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
+        }
+
+        return URLSession.shared.dataTaskPublisher(for: url)
+            .map(\.data)
+            .decode(type: CharacterListModel.self, decoder: JSONDecoder())
+            .eraseToAnyPublisher()
+    }
 }

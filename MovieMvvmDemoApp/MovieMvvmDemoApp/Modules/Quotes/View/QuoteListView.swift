@@ -11,23 +11,17 @@ struct QuoteListView : View {
     @ObservedObject var viewModel: QuoteListViewModel
     
     var body: some View {
-        
-        List(viewModel.quotes) { quote in
+        List(viewModel.quoteList) { quote in
             QuoteListRow(quote: quote)
         }
-        .alert(isPresented: $viewModel.isErrorShown, content: { () -> Alert in
-            Alert(title: Text("Error"), message: Text(viewModel.errorMessage))
-        })
-        .navigationBarTitle(Text("Characters"))
-
-        .onAppear(perform: { self.viewModel.apply(.onAppear) })
+        .navigationBarTitle(Text("Quotes"))
     }
 }
 
 #if DEBUG
 struct QuoteListView_Previews : PreviewProvider {
     static var previews: some View {
-        QuoteListView(viewModel: .init())
+        QuoteListView(viewModel: .init(quoteList: []))
     }
 }
 #endif
