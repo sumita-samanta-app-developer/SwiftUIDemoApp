@@ -70,7 +70,7 @@ final class CharacterListViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    private func filterQuotesByMovieId() -> [String] {
+    func filterQuotesByMovieId() -> [String] {
         // Fetch quote ids to filter character list
         var quoteId: [String] = []
         for quote in self.quotes {
