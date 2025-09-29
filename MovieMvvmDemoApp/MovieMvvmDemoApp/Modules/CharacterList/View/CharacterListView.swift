@@ -8,34 +8,17 @@
 import SwiftUI
 
 struct CharacterListView : View {
-    @ObservedObject var viewModel: CharacterListViewModel
-    // To show/hide ShowQuote option
-    let showQuote: Bool
-    // To retrieve the value from info.plist
-    init(viewModel: CharacterListViewModel) {
-        // Retrieve the Boolean value from Info.plist
-        if let infoDict = Bundle.main.infoDictionary,
-           let showFeature = infoDict["ShowQuote"] as? Bool {
-            self.showQuote = showFeature
-        } else {
-            // Provide a default value if the key is not found or not a Bool
-            self.showQuote = false
-        }
-        self.viewModel = viewModel
+    @StateObject var viewModel: CharacterListViewModel
+    
+    // Read from Info.plist
+    private var showQuote: Bool {
+        Bundle.main.object(forInfoDictionaryKey: "ShowQuote") as? Bool ?? false
     }
     
     var body: some View {
         VStack (alignment: .trailing) {
             if showQuote {
-                NavigationLink {
-                    QuoteListView(viewModel: QuoteListViewModel(quoteList: viewModel.quotes)) // The destination view
-                } label: {
-                    Text("Show Quotes")
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                }
+                ShowQuoteView(viewModel: viewModel)
             }
             List(viewModel.characters) { Character in
                 CharacterListRow(character: Character)
@@ -46,15 +29,30 @@ struct CharacterListView : View {
         .alert(isPresented: $viewModel.isErrorShown, content: { () -> Alert in
             Alert(title: Text("Error"), message: Text(viewModel.errorMessage))
         })
-            .navigationBarTitle(Text("Characters")) // Optional: Set a title for the navigation bar
-        .onAppear(perform: { self.viewModel.apply(.onAppear) })
+        .navigationBarTitle(Text("Characters")) // Optional: Set a title for the navigation bar
     }
 }
 
-#if DEBUG
-struct CharacterListView_Previews : PreviewProvider {
-    static var previews: some View {
-        CharacterListView(viewModel: CharacterListViewModel(movie: MovieModel(_id: "1", name: "")))
+struct ShowQuoteView: View {
+    let viewModel: CharacterListViewModel
+    
+    var body: some View {
+        NavigationLink {
+            QuoteListView(viewModel: QuoteListViewModel(quoteList: viewModel.quotes)) // The destination view
+        } label: {
+            Text("Show Quotes")
+                .padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(8)
+        }
     }
 }
-#endif
+
+//#if DEBUG
+//struct CharacterListView_Previews : PreviewProvider {
+//    static var previews: some View {
+//        CharacterListView(viewModel: CharacterListViewModel(movie: MovieModel(_id: "1", name: "")))
+//    }
+//}
+//#endif

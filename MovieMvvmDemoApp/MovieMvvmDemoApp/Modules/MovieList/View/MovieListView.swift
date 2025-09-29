@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MovieListView : View {
-    @ObservedObject var viewModel: MovieListViewModel
+    @StateObject var viewModel: MovieListViewModel
     
     var body: some View {
         NavigationView {
@@ -20,14 +20,13 @@ struct MovieListView : View {
             })
             .navigationBarTitle(Text("Movies"))
         }
-        .onAppear(perform: { self.viewModel.apply(.onAppear) })
     }
 }
 
 #if DEBUG
 struct RepositoryListView_Previews : PreviewProvider {
     static var previews: some View {
-        MovieListView(viewModel: .init())
+        MovieListView(viewModel: MovieListViewModel())
     }
 }
 #endif

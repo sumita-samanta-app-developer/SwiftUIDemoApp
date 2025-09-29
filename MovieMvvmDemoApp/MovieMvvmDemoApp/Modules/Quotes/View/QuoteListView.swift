@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct QuoteListView : View {
-    @ObservedObject var viewModel: QuoteListViewModel
+    @StateObject var viewModel: QuoteListViewModel
     
     var body: some View {
         List(viewModel.quoteList) { quote in

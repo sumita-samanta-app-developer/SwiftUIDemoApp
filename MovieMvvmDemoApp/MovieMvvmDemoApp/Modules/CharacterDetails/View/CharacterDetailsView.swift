@@ -9,20 +9,20 @@ import Foundation
 import SwiftUI
 
 struct CharacterDetailsView: View {
-    @ObservedObject var viewModel: CharacterDetailsViewModel
+    @StateObject var viewModel: CharacterDetailsViewModel
     
     var body: some View {
         VStack (alignment: .leading) {
-            Text(viewModel.character.name)
-            Text("Wiki Url: \(viewModel.character.wikiUrl ?? "")")
-            Text("Race: \(viewModel.character.race ?? "")")
-            Text("DOB: \(viewModel.character.birth ?? "")")
-            Text("Gender: \(viewModel.character.gender ?? "")")
-            Text("Death: \(viewModel.character.death ?? "")")
-            Text("Hair: \(viewModel.character.hair ?? "")")
-            Text("Height: \(viewModel.character.height ?? "")")
-            Text("Realm: \(viewModel.character.realm ?? "")")
-            Text("Spouse: \(viewModel.character.spouse ?? "")")
+            Text("Name: \(viewModel.character.name)").padding(.all, 8)
+            Text("Wiki Url: \(viewModel.character.wikiUrl ?? "")").padding(.all, 8)
+            Text("Race: \(viewModel.character.race ?? "")").padding(.all, 8)
+            Text("DOB: \(viewModel.character.birth ?? "")").padding(.all, 8)
+            Text("Gender: \(viewModel.character.gender ?? "")").padding(.all, 8)
+            Text("Death: \(viewModel.character.death ?? "")").padding(.all, 8)
+            Text("Hair: \(viewModel.character.hair ?? "")").padding(.all, 8)
+            Text("Height: \(viewModel.character.height ?? "")").padding(.all, 8)
+            Text("Realm: \(viewModel.character.realm ?? "")").padding(.all, 8)
+            Text("Spouse: \(viewModel.character.spouse ?? "")").padding(.all, 8)
             
             Spacer()
         }

@@ -2,7 +2,7 @@
 //  CharacterListViewModelTest.swift
 //  MovieMvvmDemoAppTests
 //
-//  Created by Koustav Sen on 29/09/25.
+//  Created by Sumita Samanta on 29/09/25.
 //
 
 import XCTest
