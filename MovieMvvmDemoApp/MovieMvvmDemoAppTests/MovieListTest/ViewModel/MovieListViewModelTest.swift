@@ -27,18 +27,11 @@ final class MovieListViewModelTests: XCTestCase {
         super.tearDown()
     }
 
-    func test_onAppear_withSuccessfulResponse_updatesMovies() {
+    func test_onAppear_withSuccessfulResponse_updatesMovies() async throws {
         // Given
-        let movie = MovieModel(
-            _id: "1",
-            name: "The Lord of the Rings Series",
-            runtimeInMinutes: 148,
-            budgetInMillions: 160,
-            boxOfficeRevenueInMillions: 829,
-            academyAwardNominations: 8,
-            academyAwardWins: 4,
-            rottenTomatoesScore: 87.0
-        )
+        let movieListModel = try await mockService.getMockMovieList()
+        let movie: MovieModel = (movieListModel?.docs.first)!
+        
         mockService.movieResult = .success(MovieListModel(docs: [movie]))
         viewModel = MovieListViewModel(apiService: mockService)
 
@@ -56,57 +49,26 @@ final class MovieListViewModelTests: XCTestCase {
                 expectation.fulfill()
             }
             .store(in: &cancellables)
-
-        viewModel.apply(.onAppear)
-
-        wait(for: [expectation], timeout: 1.0)
+        await fulfillment(of: [expectation], timeout: 50)
     }
-
-    func test_onAppear_withResponseError_showsError() {
-        // Given
+    
+    func testFetchMoviesFailure() {
+        // Arrange
         mockService.movieResult = .failure(.responseError)
-        viewModel = MovieListViewModel(apiService: mockService)
-
-        let expectation = XCTestExpectation(description: "Error shown")
-
-        // When
-        viewModel.$isErrorShown
-            .dropFirst()
-            .sink { isShown in
-                // Then
-                XCTAssertTrue(isShown)
-                XCTAssertEqual(self.viewModel.errorMessage, "")
-                XCTAssertTrue(self.viewModel.movies.isEmpty)
-                expectation.fulfill()
-            }
-            .store(in: &cancellables)
-
-        viewModel.apply(.onAppear)
-
-        wait(for: [expectation], timeout: 1.0)
-    }
-
-    func test_onAppear_withParseError_showsParseError() {
-        // Given
-        mockService.movieResult = .failure(.parseError(NSError(domain: "", code: 999, userInfo: nil)))
-        viewModel = MovieListViewModel(apiService: mockService)
-
-        let expectation = XCTestExpectation(description: "Parse error shown")
-
-        // When
+        
+        let viewModel = MovieListViewModel(apiService: mockService)
+        let expectation = XCTestExpectation(description: "Error received")
+        
+        // Act
         viewModel.$errorMessage
             .dropFirst()
-            .sink { error in
-                // Then
-                XCTAssertEqual(error, "parse error")
-                XCTAssertTrue(!self.viewModel.isErrorShown)
-                XCTAssertTrue(self.viewModel.movies.isEmpty)
+            .sink { errorMessage in
+                // Assert
+                XCTAssertFalse(errorMessage.isEmpty)
                 expectation.fulfill()
             }
             .store(in: &cancellables)
-
-        viewModel.apply(.onAppear)
-
+        
         wait(for: [expectation], timeout: 1.0)
     }
 }

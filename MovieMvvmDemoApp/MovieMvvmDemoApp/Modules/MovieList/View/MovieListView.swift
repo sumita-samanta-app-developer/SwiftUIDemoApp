@@ -12,7 +12,7 @@ struct MovieListView : View {
     
     var body: some View {
         NavigationView {
-            List(viewModel.movies) { movie in
+            List(viewModel.movies.sorted(by: { $0.name < $1.name })) { movie in
                 MovieListRow(movie: movie)
             }
             .alert(isPresented: $viewModel.isErrorShown, content: { () -> Alert in

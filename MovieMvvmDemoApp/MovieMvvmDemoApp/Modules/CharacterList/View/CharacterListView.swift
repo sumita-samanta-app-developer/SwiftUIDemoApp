@@ -20,7 +20,7 @@ struct CharacterListView : View {
             if showQuote {
                 ShowQuoteView(viewModel: viewModel)
             }
-            List(viewModel.characters) { Character in
+            List(viewModel.characters.sorted(by: { $0.name < $1.name })) { Character in
                 CharacterListRow(character: Character)
             }
             

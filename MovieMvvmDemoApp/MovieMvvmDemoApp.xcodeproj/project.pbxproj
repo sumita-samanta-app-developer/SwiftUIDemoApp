@@ -21,8 +21,11 @@
 		D341B18E2E8A62E9001994CE /* MockAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D341B18D2E8A62E9001994CE /* MockAPIService.swift */; };
 		D341B1962E8A7DEA001994CE /* CharacterListViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D341B1952E8A7DEA001994CE /* CharacterListViewModelTest.swift */; };
 		D341B19A2E8A9EB4001994CE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D341B1992E8A9EB4001994CE /* Constants.swift */; };
+		D34949FF2E8B06FB00AFEC9D /* MockMovieListModel.json in Resources */ = {isa = PBXBuildFile; fileRef = D34949FE2E8B06FB00AFEC9D /* MockMovieListModel.json */; };
+		D3494A012E8B072500AFEC9D /* MockCharacterListModel.json in Resources */ = {isa = PBXBuildFile; fileRef = D3494A002E8B072500AFEC9D /* MockCharacterListModel.json */; };
+		D3494A032E8B074E00AFEC9D /* MockQuoteListModel.json in Resources */ = {isa = PBXBuildFile; fileRef = D3494A022E8B074E00AFEC9D /* MockQuoteListModel.json */; };
+		D3494A062E8B08FD00AFEC9D /* MockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3494A052E8B08FD00AFEC9D /* MockService.swift */; };
 		D3549B162E84328700D75E19 /* MovieMvvmDemoAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3549B152E84328700D75E19 /* MovieMvvmDemoAppApp.swift */; };
-		D3549B182E84328700D75E19 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3549B172E84328700D75E19 /* ContentView.swift */; };
 		D3549B1A2E84328E00D75E19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3549B192E84328E00D75E19 /* Assets.xcassets */; };
 		D3549B1D2E84328E00D75E19 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3549B1C2E84328E00D75E19 /* Preview Assets.xcassets */; };
 		D3549B272E84328F00D75E19 /* MovieMvvmDemoAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3549B262E84328F00D75E19 /* MovieMvvmDemoAppTests.swift */; };
@@ -73,9 +76,12 @@
 		D341B18D2E8A62E9001994CE /* MockAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIService.swift; sourceTree = "<group>"; };
 		D341B1952E8A7DEA001994CE /* CharacterListViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewModelTest.swift; sourceTree = "<group>"; };
 		D341B1992E8A9EB4001994CE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D34949FE2E8B06FB00AFEC9D /* MockMovieListModel.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MockMovieListModel.json; sourceTree = "<group>"; };
+		D3494A002E8B072500AFEC9D /* MockCharacterListModel.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MockCharacterListModel.json; sourceTree = "<group>"; };
+		D3494A022E8B074E00AFEC9D /* MockQuoteListModel.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MockQuoteListModel.json; sourceTree = "<group>"; };
+		D3494A052E8B08FD00AFEC9D /* MockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockService.swift; sourceTree = "<group>"; };
 		D3549B122E84328700D75E19 /* MovieMvvmDemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieMvvmDemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3549B152E84328700D75E19 /* MovieMvvmDemoAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieMvvmDemoAppApp.swift; sourceTree = "<group>"; };
-		D3549B172E84328700D75E19 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D3549B192E84328E00D75E19 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D3549B1C2E84328E00D75E19 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D3549B222E84328F00D75E19 /* MovieMvvmDemoAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovieMvvmDemoAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -212,12 +218,12 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		D341B1912E8A6393001994CE /* ServicesTest */ = {
+		D341B1912E8A6393001994CE /* APIServicesTest */ = {
 			isa = PBXGroup;
 			children = (
 				D341B18D2E8A62E9001994CE /* MockAPIService.swift */,
 			);
-			path = ServicesTest;
+			path = APIServicesTest;
 			sourceTree = "<group>";
 		};
 		D341B1932E8A7DB5001994CE /* CharacterListTest */ = {
@@ -256,9 +262,41 @@
 		D34949FB2E8AC14600AFEC9D /* Mock */ = {
 			isa = PBXGroup;
 			children = (
-				D341B1912E8A6393001994CE /* ServicesTest */,
+				D3494A042E8B08E700AFEC9D /* Helper */,
+				D34949FD2E8B063600AFEC9D /* Jsons */,
+				D341B1912E8A6393001994CE /* APIServicesTest */,
 			);
 			path = Mock;
+			sourceTree = "<group>";
+		};
+		D34949FC2E8B060B00AFEC9D /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				D3549B402E847C2D00D75E19 /* APIService.swift */,
+				D3549B422E847C3E00D75E19 /* APIServiceError.swift */,
+				D3549B552E84835C00D75E19 /* MovieService.swift */,
+				D3549B572E84836B00D75E19 /* QuoteService.swift */,
+				D3549B592E84837900D75E19 /* CharacterService.swift */,
+			);
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
+		D34949FD2E8B063600AFEC9D /* Jsons */ = {
+			isa = PBXGroup;
+			children = (
+				D34949FE2E8B06FB00AFEC9D /* MockMovieListModel.json */,
+				D3494A002E8B072500AFEC9D /* MockCharacterListModel.json */,
+				D3494A022E8B074E00AFEC9D /* MockQuoteListModel.json */,
+			);
+			path = Jsons;
+			sourceTree = "<group>";
+		};
+		D3494A042E8B08E700AFEC9D /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				D3494A052E8B08FD00AFEC9D /* MockService.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		D3549B092E84328700D75E19 = {
@@ -289,7 +327,6 @@
 				D341B1972E8A9DB6001994CE /* Common */,
 				D3549B442E847C8300D75E19 /* Modules */,
 				D3549B152E84328700D75E19 /* MovieMvvmDemoAppApp.swift */,
-				D3549B172E84328700D75E19 /* ContentView.swift */,
 				D3549B192E84328E00D75E19 /* Assets.xcassets */,
 				D3549B1B2E84328E00D75E19 /* Preview Content */,
 			);
@@ -326,12 +363,8 @@
 		D3549B3F2E847BFC00D75E19 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				D34949FC2E8B060B00AFEC9D /* NetworkService */,
 				D34949FB2E8AC14600AFEC9D /* Mock */,
-				D3549B402E847C2D00D75E19 /* APIService.swift */,
-				D3549B422E847C3E00D75E19 /* APIServiceError.swift */,
-				D3549B552E84835C00D75E19 /* MovieService.swift */,
-				D3549B572E84836B00D75E19 /* QuoteService.swift */,
-				D3549B592E84837900D75E19 /* CharacterService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -507,7 +540,10 @@
 			files = (
 				D30555E62E89C75800608404 /* README.md in Resources */,
 				D3549B1D2E84328E00D75E19 /* Preview Assets.xcassets in Resources */,
+				D34949FF2E8B06FB00AFEC9D /* MockMovieListModel.json in Resources */,
 				D3549B1A2E84328E00D75E19 /* Assets.xcassets in Resources */,
+				D3494A032E8B074E00AFEC9D /* MockQuoteListModel.json in Resources */,
+				D3494A012E8B072500AFEC9D /* MockCharacterListModel.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,7 +574,6 @@
 				D305F46D2E85499D00533E79 /* CharacterDetailsViewModel.swift in Sources */,
 				D3549B512E84807300D75E19 /* MovieListRow.swift in Sources */,
 				D305F4732E85A55300533E79 /* QuoteListViewModel.swift in Sources */,
-				D3549B182E84328700D75E19 /* ContentView.swift in Sources */,
 				D3549B5A2E84837900D75E19 /* CharacterService.swift in Sources */,
 				D305F4752E85A6A000533E79 /* QuoteListView.swift in Sources */,
 				D305F4772E85A6AE00533E79 /* QuoteListRow.swift in Sources */,
@@ -548,6 +583,7 @@
 				D305F4692E853F1200533E79 /* CharacterListViewModel.swift in Sources */,
 				D3549B562E84835C00D75E19 /* MovieService.swift in Sources */,
 				D3549B4F2E847CF600D75E19 /* MovieListViewModel.swift in Sources */,
+				D3494A062E8B08FD00AFEC9D /* MockService.swift in Sources */,
 				D305F4672E853E3500533E79 /* CharacterListModel.swift in Sources */,
 				D305F46B2E8546A900533E79 /* CharacterListRow.swift in Sources */,
 				D3549B542E8480D500D75E19 /* CharacterListView.swift in Sources */,

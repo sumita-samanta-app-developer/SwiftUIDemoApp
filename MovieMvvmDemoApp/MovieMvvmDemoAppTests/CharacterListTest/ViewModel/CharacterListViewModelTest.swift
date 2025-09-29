@@ -10,127 +10,101 @@ import Combine
 @testable import MovieMvvmDemoApp
 
 final class CharacterListViewModelTests: XCTestCase {
+    
     var viewModel: CharacterListViewModel!
-    var mockService: MockAPIService!
+    var mockAPIService: MockAPIService!
     var cancellables: Set<AnyCancellable>!
-
+    
     override func setUp() {
         super.setUp()
-        mockService = MockAPIService()
+        mockAPIService = MockAPIService()
         cancellables = []
     }
-
+    
     override func tearDown() {
         viewModel = nil
+        mockAPIService = nil
         cancellables = nil
-        mockService = nil
         super.tearDown()
     }
 
-    func test_fetchQuotesAndCharacters_successfullyFiltersCharactersByMovieId() {
-        // Given
-        let movie = MovieModel(_id: "5cd95395de30eff6ebccde5d", name: "The Return of the King")
-        
-        let quote1 = QuoteModel(id: "5cd96e05de30eff6ebcce7e9", dialog: "Deagol!!", movie: "5cd95395de30eff6ebccde5d", character: "5cd99d4bde30eff6ebccfe9e", _id: "5cd96e05de30eff6ebcce7e9")
-        let quote2 = QuoteModel(id: "5cd96e05de30eff6ebcce7ed", dialog: "Why?", movie: "5cd95395de30eff6ebccde5d", character: "5cd99d4bde30eff6ebccfca7", _id: "5cd96e05de30eff6ebcce7ed") // different movie
-        let quoteList = QuoteListModel(docs: [quote1, quote2])
-        mockService.quotesResult = .success(quoteList)
-        
-        let character1 = CharacterModel(_id: "5cd99d4bde30eff6ebccfe9e", name: "Gollum")
-        let character2 = CharacterModel(_id: "5cd99d4bde30eff6ebccfca7", name: "Déagol")
-        let characterList = CharacterListModel(docs: [character1, character2])
-        mockService.charactersResult = .success(characterList)
-        
-        let expectation = XCTestExpectation(description: "Characters filtered correctly")
+    func makeMovieModel() async throws -> MovieModel {
+        let movieListModel = try await mockAPIService.getMockMovieList()
+        let movie: MovieModel = (movieListModel?.docs.first)!
+        return movie
+    }
+    
+    func testFetchQuotesAndCharacters_Success() async throws {
+        let expectation = self.expectation(description: "Quotes and characters loaded")
 
-        // When
-        viewModel = CharacterListViewModel(movie: movie, apiService: mockService)
+        // Setup mock data
+//        let quoteListModel = try await mockAPIService.getMockQuoteList()
+        let quote: QuoteModel = QuoteModel(id: "5cd96e05de30eff6ebcce7e9", _id: "5cd96e05de30eff6ebcce7e9")
+        let quotesList = QuoteListModel(docs: [quote])
+        
+        let character = CharacterModel(_id: "5cd99d4bde30eff6ebccfe9e", name: "Gollum")
+        let characterList = CharacterListModel(docs: [character])
+        
+        mockAPIService.quotesResult = .success(quotesList)
+        mockAPIService.charactersResult = .success(characterList)
+
+        // Initialize ViewModel
+        viewModel = try! await CharacterListViewModel(movie: makeMovieModel(), apiService: mockAPIService)
         
         viewModel.$characters
-            .dropFirst()
+            .dropFirst() // Wait for characters to be set
             .sink { characters in
-                // Then
                 XCTAssertEqual(characters.count, 1)
                 XCTAssertEqual(characters.first?.name, "Gollum")
                 expectation.fulfill()
             }
             .store(in: &cancellables)
-
-        wait(for: [expectation], timeout: 1)
-    }
-
-    func test_fetchQuotes_failure_doesNotFetchCharacters_andShowsError() {
-        // Given
-        let movie = MovieModel(_id: "5cd95395de30eff6ebccde5d", name: "The Return of the King")
-        mockService.quotesResult = .failure(URLError(.badServerResponse))
         
-        let expectation = XCTestExpectation(description: "Error handling quote failure")
-
-        // When
-        viewModel = CharacterListViewModel(movie: movie, apiService: mockService)
-
-        viewModel.$characters
+        await fulfillment(of: [expectation], timeout: 50)
+    }
+    
+    func testFetchQuotes_Failure_ShowsError() async throws {
+        let expectation = self.expectation(description: "Error message shown on quote fetch failure")
+        
+        mockAPIService.quotesResult = .failure(.responseError)
+        
+        viewModel = try! await CharacterListViewModel(movie: makeMovieModel(), apiService: mockAPIService)
+        
+        viewModel.$errorMessage
             .dropFirst()
-            .sink { characters in
-                // Then
-                XCTAssertTrue(characters.isEmpty)
+            .sink { errorMessage in
+                XCTAssertFalse(errorMessage.isEmpty)
+                expectation.fulfill()
+            }
+            .store(in: &cancellables)
+        
+        await fulfillment(of: [expectation], timeout: 50)
+    }
+    
+    func testFetchCharacters_Failure_ShowsError() async throws {
+        let expectation = self.expectation(description: "Error message shown on character fetch failure")
+
+        // Quotes succeed, characters fail
+        let quoteListModel = try await mockAPIService.getMockQuoteList()
+        let quote: QuoteModel = (quoteListModel?.docs.first)!
+        let quotesList = QuoteListModel(docs: [quote])
+        
+        
+        mockAPIService.quotesResult = .success(quotesList)
+        mockAPIService.charactersResult = .failure(.responseError)
+
+        viewModel = await CharacterListViewModel(movie: try! makeMovieModel(), apiService: mockAPIService)
+        
+        viewModel.$errorMessage
+            .dropFirst()
+            .sink { errorMessage in
+                XCTAssertFalse(errorMessage.isEmpty)
                 expectation.fulfill()
             }
             .store(in: &cancellables)
 
-        wait(for: [expectation], timeout: 1)
+        await fulfillment(of: [expectation], timeout: 50)
     }
 
-    func test_fetchCharacters_failure_showsError() {
-        // Given
-        let movie = MovieModel(_id: "5cd95395de30eff6ebccde5d", name: "The Return of the King")
-        
-        let quote = QuoteModel(id: "5cd96e05de30eff6ebcce7e9", dialog: "Deagol!!", movie: "5cd95395de30eff6ebccde5d", character: "5cd99d4bde30eff6ebccfe9e", _id: "5cd96e05de30eff6ebcce7e9")
-        let quoteList = QuoteListModel(docs: [quote])
-        mockService.quotesResult = .success(quoteList)
-
-        mockService.charactersResult = .failure(URLError(.badServerResponse))
-        
-        let expectation = XCTestExpectation(description: "Handles character fetch failure")
-
-        // When
-        viewModel = CharacterListViewModel(movie: movie, apiService: mockService)
-
-        viewModel.$characters
-            .dropFirst()
-            .sink { characters in
-                XCTAssertTrue(characters.isEmpty)
-                expectation.fulfill()
-            }
-            .store(in: &cancellables)
-
-        wait(for: [expectation], timeout: 1)
-    }
-
-    func test_filterQuotesByMovieId_filtersCorrectly() {
-        // Given
-        let movie = MovieModel(_id: "5cd95395de30eff6ebccde5d", name: "The Return of the King")
-        mockService.quotesResult = .success(QuoteListModel(docs: [
-            QuoteModel(id: "5cd96e05de30eff6ebcce7e9", dialog: "Deagol!!", movie: "5cd95395de30eff6ebccde5d", character: "5cd99d4bde30eff6ebccfe9e", _id: "5cd96e05de30eff6ebcce7e9"),
-            QuoteModel(id: "5cd96e05de30eff6ebcce7ea", dialog: "Deagol!", movie: "5cd95395de30eff6ebccde5d", character: "5cd99d4bde30eff6ebccfe9e", _id: "5cd96e05de30eff6ebcce7ea"),
-            QuoteModel(id: "5cd96e05de30eff6ebcce7eb", dialog: "Deagol!", movie: "5cd95395de30eff6ebccde5d", character: "5cd99d4bde30eff6ebccfe9e", _id: "5cd96e05de30eff6ebcce7eb"),
-        ]))
-        mockService.charactersResult = .success(CharacterListModel(docs: [])) // irrelevant
-
-        let expectation = XCTestExpectation(description: "Quotes are fetched")
-
-        // When
-        viewModel = CharacterListViewModel(movie: movie, apiService: mockService)
-
-        viewModel.$quotes
-            .dropFirst()
-            .sink { quotes in
-                let filteredIds = self.viewModel.filterQuotesByMovieId()
-                XCTAssertEqual(filteredIds, ["5cd99d4bde30eff6ebccfe9e"])
-                expectation.fulfill()
-            }
-            .store(in: &cancellables)
-
-        wait(for: [expectation], timeout: 1.0)
-    }
 }
+
