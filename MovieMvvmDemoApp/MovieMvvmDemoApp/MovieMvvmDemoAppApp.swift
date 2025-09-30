@@ -11,7 +11,7 @@ import SwiftUI
 struct MovieMvvmDemoAppApp: App {
     var body: some Scene {
         WindowGroup {
-            MovieListView(viewModel: .init())
+            MovieListView(viewModel: .init(apiService: APIService()))
         }
     }
 }

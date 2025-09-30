@@ -10,14 +10,9 @@ import SwiftUI
 struct CharacterListView : View {
     @StateObject var viewModel: CharacterListViewModel
     
-    // Read from Info.plist
-    private var showQuote: Bool {
-        Bundle.main.object(forInfoDictionaryKey: "ShowQuote") as? Bool ?? false
-    }
-    
     var body: some View {
         VStack (alignment: .trailing) {
-            if showQuote {
+            if viewModel.showQuote {
                 ShowQuoteView(viewModel: viewModel)
             }
             List(viewModel.characters.sorted(by: { $0.name < $1.name })) { Character in
@@ -49,10 +44,10 @@ struct ShowQuoteView: View {
     }
 }
 
-//#if DEBUG
-//struct CharacterListView_Previews : PreviewProvider {
-//    static var previews: some View {
-//        CharacterListView(viewModel: CharacterListViewModel(movie: MovieModel(_id: "1", name: "")))
-//    }
-//}
-//#endif
+#if DEBUG
+struct CharacterListView_Previews : PreviewProvider {
+    static var previews: some View {
+        CharacterListView(viewModel: CharacterListViewModel(movie: MovieModel(_id: "1", name: "")))
+    }
+}
+#endif

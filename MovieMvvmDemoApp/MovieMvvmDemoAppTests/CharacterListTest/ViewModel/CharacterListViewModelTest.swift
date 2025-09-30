@@ -60,7 +60,7 @@ final class CharacterListViewModelTests: XCTestCase {
             }
             .store(in: &cancellables)
         
-        await fulfillment(of: [expectation], timeout: 50)
+        await fulfillment(of: [expectation], timeout: 5)
     }
     
     func testFetchQuotes_Failure_ShowsError() async throws {

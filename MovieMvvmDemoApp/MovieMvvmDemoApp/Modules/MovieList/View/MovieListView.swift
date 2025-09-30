@@ -13,7 +13,7 @@ struct MovieListView : View {
     var body: some View {
         NavigationView {
             List(viewModel.movies.sorted(by: { $0.name < $1.name })) { movie in
-                MovieListRow(movie: movie)
+                MovieListRow(movie: movie, isFavorite: UserDefaults.standard.bool(forKey: movie._id))
             }
             .alert(isPresented: $viewModel.isErrorShown, content: { () -> Alert in
                 Alert(title: Text("Error"), message: Text(viewModel.errorMessage))
@@ -24,7 +24,7 @@ struct MovieListView : View {
 }
 
 #if DEBUG
-struct RepositoryListView_Previews : PreviewProvider {
+struct MovieListView_Previews : PreviewProvider {
     static var previews: some View {
         MovieListView(viewModel: MovieListViewModel())
     }

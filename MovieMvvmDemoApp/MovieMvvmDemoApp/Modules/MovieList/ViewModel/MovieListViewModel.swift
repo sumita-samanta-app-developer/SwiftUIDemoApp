@@ -17,14 +17,10 @@ final class MovieListViewModel: ObservableObject {
     @Published var isErrorShown = false
     @Published var errorMessage = ""
     
-    private let responseSubject = PassthroughSubject<MovieListModel, Never>()
-    private let errorSubject = PassthroughSubject<APIServiceError, Never>()
-    
     private let apiService: APIServiceType
     
-    init(apiService: APIServiceType = APIService(baseURL: URL(string: "\(AppConstants.BASEURL)\(APIEndpoint.movies)")!)) {
+    init(apiService: APIServiceType = APIService()) {
         self.apiService = apiService
-        
         fetchMovies()
     }
     
@@ -35,6 +31,7 @@ final class MovieListViewModel: ObservableObject {
         .receive(on: DispatchQueue.main) // Ensure UI updates on main thread
         .sink { [weak self] completion in
             if case .failure(let error) = completion {
+                self?.isErrorShown = true
                 self?.errorMessage = error.localizedDescription
             }
         } receiveValue: { [weak self] movieList in

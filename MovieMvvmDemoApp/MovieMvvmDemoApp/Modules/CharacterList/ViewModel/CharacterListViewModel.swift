@@ -18,20 +18,19 @@ final class CharacterListViewModel: ObservableObject {
     @Published private(set) var quotes: [QuoteModel] = []
     @Published var isErrorShown = false
     @Published var errorMessage = ""
-    
-    private let characterResponseSubject = PassthroughSubject<CharacterListModel, Never>()
-    private let quoteResponseSubject = PassthroughSubject<QuoteListModel, Never>()
-    private let errorSubject = PassthroughSubject<APIServiceError, Never>()
+    @Published var showQuote = false
     
     private var apiService: APIServiceType
     let movie: MovieModel
     
-    init(movie: MovieModel, apiService: APIServiceType = APIService(baseURL: URL(string: "\(AppConstants.BASEURL)\(APIEndpoint.quote)")!)) {
-        
+    init(movie: MovieModel, apiService: APIServiceType = APIService()) {
         self.movie = movie
         self.apiService = apiService
         
-        fetchQuotes()
+        // Read from Info.plist
+        showQuote = Bundle.main.object(forInfoDictionaryKey: "ShowQuote") as? Bool ?? false
+        
+        self.fetchQuotes()
     }
     
     // Fetch Quotes
@@ -41,6 +40,7 @@ final class CharacterListViewModel: ObservableObject {
         .receive(on: DispatchQueue.main) // Ensure UI updates on main thread
         .sink { [weak self] completion in
             if case .failure(let error) = completion {
+                self?.isErrorShown = true
                 self?.errorMessage = error.localizedDescription
             }
         } receiveValue: { [weak self] movieList in
@@ -52,12 +52,12 @@ final class CharacterListViewModel: ObservableObject {
     
     // Fetch characters
     private func fetchCharacters() {
-        apiService = APIService(baseURL: URL(string: "\(AppConstants.BASEURL)\(APIEndpoint.character)")!)
         let request = CharacterRequest()
         apiService.response(from: request)
         .receive(on: DispatchQueue.main) // Ensure UI updates on main thread
         .sink { [weak self] completion in
             if case .failure(let error) = completion {
+                self?.isErrorShown = true
                 self?.errorMessage = error.localizedDescription
             }
         } receiveValue: { [weak self] movieList in
